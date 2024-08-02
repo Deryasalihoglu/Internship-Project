@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class TestTowerDefence : MonoBehaviour
 {
-    private HealthBar healthBar;
+    [SerializeField] private HealthBar healthBar;
+    [SerializeField] private float maxHealth;
+    private float currentHealth;
 
     // Start is called before the first frame update
     void Start()
     {
-        this.healthBar = gameObject.AddComponent<HealthBar>();  // When the game starts, the tower will have health bar with max value.
+        currentHealth = maxHealth;
+        healthBar.setMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
@@ -17,5 +20,21 @@ public class TestTowerDefence : MonoBehaviour
     {
         //Debug.Log("Max health" + healthBar.getMaxHealth());
         //Debug.Log("Current health" + healthBar.getCurrentHealth());
+    }
+
+    public void takeDamage(float damage)
+    {
+        currentHealth -= damage;
+        healthBar.setMaxHealth(currentHealth);
+
+        if (currentHealth <= 0) 
+        {
+            OnDeath();
+        }
+    }
+
+    public void OnDeath()
+    {
+        Debug.Log("Tower has been destroyed");
     }
 }
