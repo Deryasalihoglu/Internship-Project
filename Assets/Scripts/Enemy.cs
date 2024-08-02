@@ -6,19 +6,17 @@ public class Enemy : MonoBehaviour
 {
 
     public float speed;
-    private Rigidbody2D rigidbody;
-    private Animator animator;
+    [SerializeField] private Rigidbody2D rigidbody;
+    [SerializeField] private Animator animator;
 
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-    }
-
-    private void Update()
-    {
         speed = 3;
         animator.SetFloat("speed", 3);
-        rigidbody.velocity = new Vector2((-1 * speed),0f);
+    }
+
+    private void FixedUpdate()
+    {
+        rigidbody.MovePosition(transform.position + new Vector3(-speed * Time.fixedDeltaTime, 0f, 0f));
     }
 }
