@@ -4,30 +4,18 @@ using UnityEngine;
 
 public class TestTowerDefence : MonoBehaviour
 {
-
-    private int maxHealth = 100;
-    private int currentHealth;
     private HealthBar healthBar;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;  // When the game starts, the tower will have max health.
-        healthBar.SetHealth(maxHealth); //and health bar will show it.
+        this.healthBar = gameObject.AddComponent<HealthBar>();  // When the game starts, the tower will have health bar with max value.
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    public int GetMaxHealth() { return maxHealth; }
-    public int GetCurrentHealth() { return currentHealth; }
-
-    public void TakaDamage(int damage)
-    {
-        currentHealth -= damage;
-        healthBar.SetHealth(currentHealth);
+        //Debug.Log("Max health" + healthBar.getMaxHealth());
+        //Debug.Log("Current health" + healthBar.getCurrentHealth());
     }
 }
