@@ -6,55 +6,24 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     public Slider slider;
-    private int maxHealth;
-    private int minHealth;
-    private int currentHealth;
+    private float maxHealth;
 
-    public HealthBar()
+
+    void Start()
     {
-        maxHealth = 100;
-        minHealth = 0;
-        currentHealth = 100;
-        slider.maxValue = 100;
-        slider.value = 100;
+
     }
 
-    public void setMaxHealth(int health) 
+    public void setMaxHealth(float health) 
     {
         maxHealth = health;
-        slider.maxValue = health;
-        slider.value = health;
+        setCurrentHealth(health);
     }
 
-    public void setCurrentHealth(int health)
+    public void setCurrentHealth(float health)
     {
-        currentHealth = health;
-        slider.value = health; 
+        float normalizedHealth = Mathf.Clamp(health / maxHealth, 0, 1);
+        slider.value = normalizedHealth;
     }
-
-    public void setMinHealth(int health)
-    {  
-        minHealth = health;
-        slider.minValue = health;
-    }
-
-    public void takeDamage(int damage)
-    {
-        if (slider.value > 0 && slider.value >= damage)
-        {
-            slider.value -= damage;
-            currentHealth -= damage;
-        }
-
-        else if (slider.value > 0 && slider.value < damage)
-        {
-            slider.value = 0;
-            currentHealth = 0;
-        }
-    }
-
-    public int getMaxHealth() { return maxHealth; }
-    public int getMinHealth() { return minHealth; }
-    public int getCurrentHealth() { return currentHealth; }
 
 }
