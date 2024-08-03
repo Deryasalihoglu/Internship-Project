@@ -7,6 +7,7 @@ public class TestTowerDefence : MonoBehaviour
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private float maxHealth;
     private float currentHealth;
+    [SerializeField] bool isCollided;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,7 @@ public class TestTowerDefence : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     public void TakeDamage(float damage)
@@ -39,6 +40,7 @@ public class TestTowerDefence : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        isCollided = true;
         TakeDamage(20); // Tek vuruþta kule yýkýlacak 
         Debug.Log("20 damage verildi");
     }
