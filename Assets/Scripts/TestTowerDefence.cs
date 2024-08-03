@@ -12,20 +12,19 @@ public class TestTowerDefence : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        healthBar.setMaxHealth(maxHealth);
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Max health" + healthBar.getMaxHealth());
-        //Debug.Log("Current health" + healthBar.getCurrentHealth());
+
     }
 
-    public void takeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        healthBar.setMaxHealth(currentHealth);
+        healthBar.SetCurrentHealth(currentHealth);
 
         if (currentHealth <= 0) 
         {
@@ -36,5 +35,11 @@ public class TestTowerDefence : MonoBehaviour
     public void OnDeath()
     {
         Debug.Log("Tower has been destroyed");
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        TakeDamage(20); // Tek vuruþta kule yýkýlacak 
+        Debug.Log("20 damage verildi");
     }
 }
