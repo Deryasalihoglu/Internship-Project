@@ -14,13 +14,12 @@ public class HealthBar : MonoBehaviour
 
     }
 
-    public void setMaxHealth(float health) 
+    public void SetMaxHealth(float health) 
     {
         maxHealth = health;
-        setCurrentHealth(health);
     }
 
-    public void setCurrentHealth(float health)
+    public void SetCurrentHealth(float health)
     {
         float normalizedHealth = Mathf.Clamp(health / maxHealth, 0, 1);
         slider.value = normalizedHealth;
