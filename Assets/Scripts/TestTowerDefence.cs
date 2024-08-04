@@ -38,9 +38,9 @@ public class TestTowerDefence : MonoBehaviour
         Debug.Log("Tower has been destroyed");
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionEnter2D(Collision2D collision)
     {
-        isCollided = true;
+        //isCollided = true;
         TakeDamage(20); // Tek vuruþta kule yýkýlacak 
         Debug.Log("20 damage verildi");
     }
