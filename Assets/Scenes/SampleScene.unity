@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 148383981}
   m_Layer: 0
   m_Name: tree-house
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -239,6 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1926439302}
   maxHealth: 100
+  isCollided: 0
 --- !u!70 &148383982
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1061,7 +1062,7 @@ GameObject:
   - component: {fileID: 1247518562}
   - component: {fileID: 1247518561}
   - component: {fileID: 1247518563}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Midground
   m_TagString: Ground
   m_Icon: {fileID: 0}
