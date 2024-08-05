@@ -10,16 +10,23 @@ public class TestTowerDefence : MonoBehaviour
     private float currentHealth;
     private Enemy enemy;
     private bool isCollided;
+    public bool isDestroyed;
+    [SerializeField] private Animator animator;
 
-    // Start is called before the first frame update
+
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     void Start()
     {
+        isDestroyed = false;
         isCollided = false;
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -39,6 +46,8 @@ public class TestTowerDefence : MonoBehaviour
 
     public void OnDeath()
     {
+        isDestroyed=true;
+        animator.Play("TowerExplosion");
         Debug.Log("Tower has been destroyed");
         StopAllCoroutines();
     }
