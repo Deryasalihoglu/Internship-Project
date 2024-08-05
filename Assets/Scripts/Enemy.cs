@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Rigidbody2D rigidbody;
     [SerializeField] private Animator animator;
 
+
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -38,4 +39,5 @@ public class Enemy : MonoBehaviour
             animator.Play("GoblinAttack_1");
         }
     }
+
 }
