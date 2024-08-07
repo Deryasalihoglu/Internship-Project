@@ -5,27 +5,19 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
-    public float speed;
-    public float damage;
-    public float damageInterval;
-    public bool isCollided;
+    public float speed = 3;
+    public float damage = 5;
+    public float attackCooldown = 0.21f;
+    private bool isCollided;
     private float timeSinceLastAttack;
-    private TestTowerDefence tower;
+    public TestTowerDefence tower;
     [SerializeField] private Rigidbody2D rigidbody;
     [SerializeField] private Animator animator;
 
-
-    void Awake()
-    {
-        animator = GetComponent<Animator>();
-    }
-
     void Start()
     {
-        damage = 5;
-        damageInterval = 0.21f;
-        speed = 3;
-        animator.SetFloat("speed", 3);
+        animator.SetFloat("speed", speed);
+        GameController.Instance.OnTowerDestroyed += OnTowerDestroyed;
     }
 
     private void FixedUpdate()
@@ -36,7 +28,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         timeSinceLastAttack += Time.deltaTime;
-        if (timeSinceLastAttack > damageInterval && isCollided)
+        if (timeSinceLastAttack > attackCooldown)
         {
             Attack();
         }
@@ -46,25 +38,25 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Tower"))
         {
-            tower = collision.gameObject.GetComponent<TestTowerDefence>();
             isCollided = true;
             speed = 0;
             animator.SetFloat("speed", 0);
         }
     }
 
-    void Attack()
+    private void Attack()
     {
-        if (!tower.isDestroyed)
+        if (!tower.isDestroyed && isCollided)
         {
-        animator.Play("GoblinAttack_1");
-        timeSinceLastAttack = 0;
-        tower.TakeDamage(damage);
+            animator.Play("GoblinAttack_1");
+            timeSinceLastAttack = 0;
+            tower.TakeDamage(damage);
         }
+    }
 
-        else
-        {
-            animator.Play("GoblinIdle");
-        }
+    private void OnTowerDestroyed()
+    {
+        isCollided = false;
+        animator.Play("GoblinIdle");
     }
 }
