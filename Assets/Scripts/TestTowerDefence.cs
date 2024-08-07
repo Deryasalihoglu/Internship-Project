@@ -11,22 +11,11 @@ public class TestTowerDefence : MonoBehaviour
     public bool isDestroyed;
     [SerializeField] private Animator animator;
 
-
-    void Awake()
-    {
-        animator = GetComponent<Animator>();
-    }
-
     void Start()
     {
         isDestroyed = false;
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
-    }
-
-    void Update()
-    {
-    
     }
 
     public void TakeDamage(float damage)
@@ -46,6 +35,7 @@ public class TestTowerDefence : MonoBehaviour
         isDestroyed=true;
         animator.Play("TowerExplosion");
         Debug.Log("Tower has been destroyed");
+        GameController.Instance.OnTowerDestroyed();
     }
 
 }
