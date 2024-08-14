@@ -1,5 +1,3 @@
-//using System.Collections;
-//using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -10,8 +8,8 @@ public class Enemy : MonoBehaviour
     public float attackCooldown = 0.21f;
     private bool isCollided;
     private float timeSinceLastAttack;
-    public TestTowerDefence tower;
-    [SerializeField] private Rigidbody2D rigidbody;
+    [HideInInspector] public Tower tower;
+    [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator animator;
 
     void Start()
@@ -22,7 +20,7 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rigidbody.MovePosition(transform.position + new Vector3(-speed * Time.fixedDeltaTime, 0f, 0f));
+        rb.MovePosition(transform.position + new Vector3(-speed * Time.fixedDeltaTime, 0f, 0f));
     }
 
     void Update()
@@ -40,15 +38,14 @@ public class Enemy : MonoBehaviour
         {
             isCollided = true;
             speed = 0;
-            animator.SetFloat("speed", 0);
+            animator.SetBool("isAttacking", true);
         }
     }
 
     private void Attack()
     {
-        if (!tower.isDestroyed && isCollided)
+        if (isCollided && !tower.isDestroyed)
         {
-            animator.Play("GoblinAttack_1");
             timeSinceLastAttack = 0;
             tower.TakeDamage(damage);
         }
@@ -57,6 +54,7 @@ public class Enemy : MonoBehaviour
     private void OnTowerDestroyed()
     {
         isCollided = false;
+        animator.SetBool("isAttacking", false);
         animator.Play("GoblinIdle");
     }
 }
