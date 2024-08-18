@@ -60,9 +60,9 @@ public class Enemy : MonoBehaviour
         animator.Play("GoblinIdle");
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float takenDamage)
     {
-        currentHealth -= damage;
+        currentHealth -= takenDamage;
         if (currentHealth <= 0)
         {
             this.gameObject.SetActive(false);
