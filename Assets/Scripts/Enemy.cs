@@ -5,11 +5,12 @@ public class Enemy : MonoBehaviour
 
     public float speed = 3;
     public float damage = 5;
-    public float currentHealth = 20;
+    private int currentHealth;
+    [SerializeField] private int maxHealth = 3;
     public float attackCooldown = 0.21f;
     private bool isCollided;
     private float timeSinceLastAttack;
-    public EnemyPool enemyPool;
+    private EnemyPool enemyPool;
     [HideInInspector] public Tower tower;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator animator;
@@ -60,13 +61,25 @@ public class Enemy : MonoBehaviour
         animator.Play("GoblinIdle");
     }
 
-    public void TakeDamage(float takenDamage)
+    public void TakeDamage(int takenDamage)
     {
         currentHealth -= takenDamage;
         if (currentHealth <= 0)
         {
-            this.gameObject.SetActive(false);
             enemyPool.AddDefeatedEnemyToPool(this);
         }
+    }
+
+    public void OnSpawned()
+    {
+        currentHealth = maxHealth;
+        isCollided = false;
+        animator.SetBool("isAttacking", false);
+        animator.Play("GoblinRun");
+    }
+
+    public void SetPool(EnemyPool pool)
+    {
+        enemyPool = pool;
     }
 }
