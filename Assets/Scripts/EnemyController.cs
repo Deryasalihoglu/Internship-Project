@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    [SerializeField] private GameObject enemyOriginPoint;
+    [SerializeField] private Transform enemyContainer;
     [SerializeField] private Enemy enemyPrefab;
     [SerializeField] private Tower tower;
     [SerializeField] private float spawnCooldown;
@@ -11,7 +13,7 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        pool = new EnemyPool(enemyPrefab, tower);
+        pool = new EnemyPool(enemyPrefab, tower, enemyOriginPoint, enemyContainer);
         GameController.Instance.OnTowerDestroyed += OnTowerDestroyed;
     }
 
