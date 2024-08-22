@@ -18,15 +18,20 @@ public class ArrowController : MonoBehaviour
     private void Update()
     {
         timeSinceLastArrowSpawn += Time.deltaTime;
-        if (Input.GetMouseButtonDown(0) && timeSinceLastArrowSpawn > arrowCooldown)
+        if (Input.touchCount > 0 && timeSinceLastArrowSpawn > arrowCooldown)
         {
-            ShootArrow();
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Began)
+            {
+                ShootArrow(touch);
+            }
         }
     }
 
-    public void ShootArrow()
+    public void ShootArrow(Touch touch)
     {
-        targetPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        targetPoint = Camera.main.ScreenToWorldPoint(touch.position);
         targetPoint.z = 0;
         Vector3 origin = originPoint.transform.position;
         origin.z = 0;
