@@ -38,8 +38,8 @@ public class EnemyPool
             enemyFromPool.SetPool(this);
         }
 
-        enemyFromPool.gameObject.SetActive(true);
         enemyFromPool.transform.position = enemyOriginPoint.transform.position;
+        enemyFromPool.gameObject.SetActive(true);
         enemyFromPool.tower = targetTower;
         activeEnemies.Add(enemyFromPool);
         enemyFromPool.OnSpawned();
