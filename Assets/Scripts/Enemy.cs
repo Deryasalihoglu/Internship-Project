@@ -40,7 +40,6 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Tower"))
         {
             isCollided = true;
-            speed = 0;
             animator.SetBool("isAttacking", true);
         }
     }
